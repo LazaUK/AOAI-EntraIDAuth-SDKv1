@@ -1,6 +1,6 @@
 # Authenticating with Azure OpenAI models, using Entra ID (former Azure Active Directory).
 
-Azure OpenAI service supports 2 authentication methods:
+Azure OpenAI service supports 2 authentication methods to access GPT-x, Embeddings, Whisper and DALL-E models:
 - _using API key_, when you authenticate with your Azure OpenAI endpoint's API key
 - _using Entra ID_, when you authenticate with a temporary access token.
 
