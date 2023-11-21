@@ -46,7 +46,7 @@ Neptune is the eighth and farthest known planet from the Sun in our solar system
 
 ## Scenario 2: Authenticating with Entra ID - Interactive Login
 >**Note**: Ensure that you have "**Cognitive Service OpenAI User**" role assigned to yourself on Azure OpenAI resource.
-1. To use interactive authentication with Entra ID, import **InteractiveBrowserCredential** class **and get_bearer_token_provider** function from azure.identity package and instantiate your token provider.
+1. To use interactive authentication with Entra ID, import **InteractiveBrowserCredential** class **and get_bearer_token_provider** function from _azure.identity_ package and instantiate your token provider.
 ``` Python
 token_provider = get_bearer_token_provider(
     InteractiveBrowserCredential(),
@@ -71,14 +71,14 @@ response = client.chat.completions.create(
     ]
 )
 ```
-4. If authenticatuion successful, called GPT model should generate relevant completion.
+4. If authentication is successful, called GPT model should generate relevant completion.
 ``` JSON
 The sunflower, a vibrant echo of the summer sun, stands tall with its large, rough stem that hoists the bright yellow petals aloft. Each flower is actually a composite of hundreds of small florets that cluster together to form the eye-catching disk, circled by the flamboyant sun-like halo. This cheerful bloom not only follows the day's sun, performing a slow dance from east to west, but is also a symbol of loyalty and adoration.
 ```
 
 ## Scenario 3: Authenticating with Entra ID - Service Principal
 >**Note**: Ensure that your Service Principal has "**Cognitive Service OpenAI User**" role assigned to it on Azure OpenAI resource.
-1. To use authentication with Entra ID Service Principal, import **EnvironmentCredential** class **and get_bearer_token_provider** function from azure.identity package and instantiate your token provider.
+1. To use authentication with Entra ID Service Principal, import **EnvironmentCredential** class **and get_bearer_token_provider** function from _azure.identity_ package and instantiate your token provider.
 ``` Python
 token_provider = get_bearer_token_provider(
     EnvironmentCredential(),
@@ -87,3 +87,25 @@ token_provider = get_bearer_token_provider(
 ```
 2. Assign your Service Principal's details to **AZURE_TENANT_ID**, **AZURE_CLIENT_ID** and **AZURE_CLIENT_SECRET** environment variables.
 ![screenshot_3.2_environment](images/sp_1_environment.png)
+3. Now you can instantiate AzureOpenAI client and set **azure_ad_token_provider** parameter to your token provider from Step 3.1 above.
+``` Python
+client = AzureOpenAI(
+    azure_endpoint = os.getenv("OPENAI_API_BASE"),
+    azure_ad_token_provider = token_provider,
+    api_version = os.getenv("OPENAI_API_VERSION")
+)
+```
+4. Calling Chat Completions API will pass your Service Principal credentials to Entra ID to generate an access token.
+``` Python
+response = client.chat.completions.create(
+    model = os.getenv("OPENAI_API_DEPLOY"), # model = "Azure OpenAI deployment name".
+    messages = [
+        {"role": "system", "content": "You are a friendly chatbot"},
+        {"role": "user", "content": "Choose a random animal and describe it to me in 3 sentences."}
+    ]
+)
+```
+5. If authentication is successful, called GPT model should generate relevant completion.
+``` JSON
+The animal I've chosen is the giraffe. Giraffes are the tallest mammals on Earth, their legs alone can be taller than most humans—about 6 feet. They have a distinctive spotted coat and a long neck which they use to reach leaves, fruits, and flowers high up in Acacia trees.
+```
