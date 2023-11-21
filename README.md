@@ -15,7 +15,7 @@ pip install --upgrade openai
 
 ## Table of contents:
 - [Scenario 1: Authenticating with API Key](https://github.com/LazaUK/AOAI-EntraIDAuth-SDKv1/tree/main#scenario-1-authenticating-with-api-key)
-- [Scenario 2: Authenticating with Entra ID - Interactive Login]()
+- [Scenario 2: Authenticating with Entra ID - Interactive Login](https://github.com/LazaUK/AOAI-EntraIDAuth-SDKv1/tree/main#scenario-2-authenticating-with-entra-id---interactive-login)
 - [Scenario 3: Authenticating with Entra ID - Service Principal]()
 
 ## Scenario 1: Authenticating with API Key
@@ -52,8 +52,8 @@ token_provider = get_bearer_token_provider(
     "https://cognitiveservices.azure.com/.default"
 )
 ```
-2. Ensure that you have "**Cognitive Service OpenAI User**" role assigned to yourself on Azure OpenAI resource.
-3. Now you can instantiate AzureOpenAI client and set **azure_ad_token_provider** parameter to your token provider from Step 2.1 above.
+>**Note**: Ensure that you have "**Cognitive Service OpenAI User**" role assigned to yourself on Azure OpenAI resource.
+2. Now you can instantiate AzureOpenAI client and set **azure_ad_token_provider** parameter to your token provider from Step 2.1 above.
 ``` Python
 client = AzureOpenAI(
     azure_endpoint = os.getenv("OPENAI_API_BASE"),
@@ -61,7 +61,7 @@ client = AzureOpenAI(
     api_version = os.getenv("OPENAI_API_VERSION")
 )
 ```
-4. Calling Chat Completions API will open a new browser window for you to login with your Azure account.
+3. Calling Chat Completions API will open a new browser window for you to login with your Azure account.
 ``` Python
 response = client.chat.completions.create(
     model = os.getenv("OPENAI_API_DEPLOY"), # model = "Azure OpenAI deployment name".
@@ -71,7 +71,7 @@ response = client.chat.completions.create(
     ]
 )
 ```
-5. 
+4. 
 
 ## Scenario 3: Authenticating with Entra ID - Service Principal
 
