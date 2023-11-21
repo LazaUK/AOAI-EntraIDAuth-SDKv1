@@ -21,7 +21,28 @@ pip install --upgrade openai
 ## Scenario 1: Authenticating with API Key
 1. To use API key authentication, set API endpoint name, version and key, along with the Azure OpenAI deployment name to **OPENAI_API_BASE**, **OPENAI_API_VERSION**, **OPENAI_API_KEY** and **OPENAI_API_DEPLOY** environment variables.
 ![screenshot_1.1_environment](images/api_1_environment.png)
-2. 
+2. Now you can instantiate AzureOpenAI client and pass environment variable values to the relevant parameters.
+``` Python
+client = AzureOpenAI(
+    azure_endpoint = os.getenv("OPENAI_API_BASE"),
+    api_key = os.getenv("OPENAI_API_KEY"),
+    api_version = os.getenv("OPENAI_API_VERSION")
+)
+```
+3. Calling Chat Completions API will pass your API key to Azure OpenAI endpoint.
+``` Python
+response = client.chat.completions.create(
+    model = os.getenv("OPENAI_API_DEPLOY"), # model = "Azure OpenAI deployment name".
+    messages = [
+        {"role": "system", "content": "You are a friendly chatbot"},
+        {"role": "user", "content": "Choose a random planet and describe it to me in 3 sentences."}
+    ]
+)
+```
+4. And it should generate relevant completion.
+``` JSON
+Neptune is the eighth and farthest known planet from the Sun in our solar system. It is a giant planet composed primarily of hydrogen and helium, with traces of methane, giving it a striking blue appearance. Neptune has a dynamic atmosphere with the fastest winds in the solar system, reaching speeds of over 1,100 miles per hour, and a series of dark spots caused by storm activities.
+```
 
 ## Scenario 2: Authenticating with Entra ID - Interactive Login
 
