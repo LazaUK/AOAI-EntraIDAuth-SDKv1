@@ -16,7 +16,7 @@ pip install --upgrade openai
 ## Table of contents:
 - [Scenario 1: Authenticating with API Key](https://github.com/LazaUK/AOAI-EntraIDAuth-SDKv1/tree/main#scenario-1-authenticating-with-api-key)
 - [Scenario 2: Authenticating with Entra ID - Interactive Login](https://github.com/LazaUK/AOAI-EntraIDAuth-SDKv1/tree/main#scenario-2-authenticating-with-entra-id---interactive-login)
-- [Scenario 3: Authenticating with Entra ID - Service Principal]()
+- [Scenario 3: Authenticating with Entra ID - Service Principal](https://github.com/LazaUK/AOAI-EntraIDAuth-SDKv1/tree/main#scenario-3-authenticating-with-entra-id---service-principal)
 
 ## Scenario 1: Authenticating with API Key
 1. To use API key authentication, set API endpoint name, version and key, along with the Azure OpenAI deployment name to **OPENAI_API_BASE**, **OPENAI_API_VERSION**, **OPENAI_API_KEY** and **OPENAI_API_DEPLOY** environment variables.
