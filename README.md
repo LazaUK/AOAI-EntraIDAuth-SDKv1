@@ -1,4 +1,4 @@
-# Authenticating with Azure OpenAI models, using Entra ID (former Azure ACtive Directory).
+# Authenticating with Azure OpenAI models, using Entra ID (former Azure Active Directory).
 
 Azure OpenAI service supports 2 authentication methods:
 - _using API key_, when you authenticate with your Azure OpenAI endpoint's API key
@@ -19,7 +19,11 @@ pip install --upgrade openai
 - [Scenario 3: Authenticating with Entra ID - Service Principal]()
 
 ## Scenario 1: Authenticating with API Key
+1. To use API key authentication, set API endpoint name, version and key, along with the Azure OpenAI deployment name to **OPENAI_API_BASE**, **OPENAI_API_VERSION**, **OPENAI_API_KEY** and **OPENAI_API_DEPLOY** environment variables.
+![screenshot_1.1_environment](images/api_1_environment.png)
 
 ## Scenario 2: Authenticating with Entra ID - Interactive Login
 
+
 ## Scenario 3: Authenticating with Entra ID - Service Principal
+
