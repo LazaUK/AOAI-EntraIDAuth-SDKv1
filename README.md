@@ -2,13 +2,13 @@
 
 Azure OpenAI service supports 2 authentication methods:
 - _using API key_, when you authenticate with your Azure OpenAI endpoint's API key
-- _using Entra ID_, when you authneticate with a temporary access token.
+- _using Entra ID_, when you authenticate with a temporary access token.
 
 While API keys are simpler and easier to use, some clients may prefer the use of Entra ID bearer tokens because of internal security requirements.
 
 In this repo I'll demo the use of the latest openai Python package v1.x, that was released in November 2023. And, particularly, on how to use the new **azure_ad_token_provider** parameter of **AzureOpenAI** class.
 
-To use the latest version of *openai* python package, you can upgrade it wth the following pip command:
+To use the latest version of *openai* python package, you can upgrade it with the following pip command:
 ```
 pip install --upgrade openai
 ```
@@ -45,7 +45,7 @@ Neptune is the eighth and farthest known planet from the Sun in our solar system
 ```
 
 ## Scenario 2: Authenticating with Entra ID - Interactive Login
->**Note**: Ensure that you have "**Cognitive Service OpenAI User**" role assigned to yourself on Azure OpenAI resource.
+>**Note**: Ensure that you have the "**Cognitive Service OpenAI User**" role assigned to yourself on the Azure OpenAI resource.
 1. To use interactive authentication with Entra ID, import **InteractiveBrowserCredential** class **and get_bearer_token_provider** function from _azure.identity_ package and instantiate your token provider.
 ``` Python
 token_provider = get_bearer_token_provider(
@@ -71,14 +71,14 @@ response = client.chat.completions.create(
     ]
 )
 ```
-4. If authentication is successful, called GPT model should generate relevant completion.
+4. If authentication is successful, the called GPT model should generate relevant completion.
 ``` JSON
 The sunflower, a vibrant echo of the summer sun, stands tall with its large, rough stem that hoists the bright yellow petals aloft. Each flower is actually a composite of hundreds of small florets that cluster together to form the eye-catching disk, circled by the flamboyant sun-like halo. This cheerful bloom not only follows the day's sun, performing a slow dance from east to west, but is also a symbol of loyalty and adoration.
 ```
 
 ## Scenario 3: Authenticating with Entra ID - Service Principal
->**Note**: Ensure that your Service Principal has "**Cognitive Service OpenAI User**" role assigned to it on Azure OpenAI resource.
-1. To use authentication with Entra ID Service Principal, import **EnvironmentCredential** class **and get_bearer_token_provider** function from _azure.identity_ package and instantiate your token provider.
+>**Note**: Ensure that your Service Principal has the "**Cognitive Service OpenAI User**" role assigned to it on the Azure OpenAI resource.
+1. To use authentication with the Entra ID Service Principal, import **EnvironmentCredential** class **and get_bearer_token_provider** function from _azure.identity_ package and instantiate your token provider.
 ``` Python
 token_provider = get_bearer_token_provider(
     EnvironmentCredential(),
@@ -95,7 +95,7 @@ client = AzureOpenAI(
     api_version = os.getenv("OPENAI_API_VERSION")
 )
 ```
-4. Calling Chat Completions API will pass your Service Principal credentials to Entra ID to generate an access token.
+4. Calling Chat Completions API will pass your Service Principal's credentials to the Entra ID endpoint to request an access token.
 ``` Python
 response = client.chat.completions.create(
     model = os.getenv("OPENAI_API_DEPLOY"), # model = "Azure OpenAI deployment name".
@@ -105,7 +105,7 @@ response = client.chat.completions.create(
     ]
 )
 ```
-5. If authentication is successful, called GPT model should generate relevant completion.
+5. If authentication is successful, the called GPT model should generate relevant completion.
 ``` JSON
 The animal I've chosen is the giraffe. Giraffes are the tallest mammals on Earth, their legs alone can be taller than most humans—about 6 feet. They have a distinctive spotted coat and a long neck which they use to reach leaves, fruits, and flowers high up in Acacia trees.
 ```
