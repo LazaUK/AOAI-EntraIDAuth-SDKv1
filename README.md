@@ -2,9 +2,9 @@
 
 Azure OpenAI service supports 2 authentication methods:
 - _using API key_, when you authenticate with your Azure OpenAI endpoint's API key
-- _using Entra ID_, when you authneticate with a temporary bearer token.
+- _using Entra ID_, when you authneticate with a temporary access token.
 
-While API keys are simpler and easier to use, some clients may prefer the use of Entra ID bearer tokens because of security requirements.
+While API keys are simpler and easier to use, some clients may prefer the use of Entra ID bearer tokens because of internal security requirements.
 
 In this repo I'll demo the use of the latest openai Python package v1.x, that was released in November 2023. And, particularly, on how to use the new **azure_ad_token_provider** parameter of **AzureOpenAI** class.
 
@@ -14,7 +14,7 @@ pip install --upgrade openai
 ```
 
 ## Table of contents:
-- [Scenario 1: Authenticating with API Key]()
+- [Scenario 1: Authenticating with API Key](https://github.com/LazaUK/AOAI-EntraIDAuth-SDKv1/tree/main#scenario-1-authenticating-with-api-key)
 - [Scenario 2: Authenticating with Entra ID - Interactive Login]()
 - [Scenario 3: Authenticating with Entra ID - Service Principal]()
 
@@ -45,7 +45,33 @@ Neptune is the eighth and farthest known planet from the Sun in our solar system
 ```
 
 ## Scenario 2: Authenticating with Entra ID - Interactive Login
-
+1. To use interactive authentication with Entra ID, import **InteractiveBrowserCredential** class **and get_bearer_token_provider** function from azure.identity package and instantiate your token provider
+``` Python
+token_provider = get_bearer_token_provider(
+    InteractiveBrowserCredential(),
+    "https://cognitiveservices.azure.com/.default"
+)
+```
+2. Ensure that you have "**Cognitive Service OpenAI User**" role assigned to yourself on Azure OpenAI resource.
+3. Now you can instantiate AzureOpenAI client and set **azure_ad_token_provider** parameter to your token provider from Step 2.1 above.
+``` Python
+client = AzureOpenAI(
+    azure_endpoint = os.getenv("OPENAI_API_BASE"),
+    azure_ad_token_provider = token_provider,
+    api_version = os.getenv("OPENAI_API_VERSION")
+)
+```
+4. Calling Chat Completions API will open a new browser window for you to login with your Azure account.
+``` Python
+response = client.chat.completions.create(
+    model = os.getenv("OPENAI_API_DEPLOY"), # model = "Azure OpenAI deployment name".
+    messages = [
+        {"role": "system", "content": "You are a friendly chatbot"},
+        {"role": "user", "content": "Choose a random flower and describe it to me in 3 sentences."}
+    ]
+)
+```
+5. 
 
 ## Scenario 3: Authenticating with Entra ID - Service Principal
 
