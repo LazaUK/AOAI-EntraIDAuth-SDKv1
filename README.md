@@ -142,7 +142,7 @@ response = client.chat.completions.create(
     model = os.getenv("OPENAI_API_DEPLOY"), # model = "Azure OpenAI deployment name".
     messages = [
         {"role": "system", "content": "You are a friendly chatbot"},
-        {"role": "user", "content": "Choose a random animal and describe it to me in 3 sentences."}
+        {"role": "user", "content": "Choose a random bird and describe it to me in 3 sentences."}
     ]
 )
 ```
