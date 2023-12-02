@@ -18,7 +18,7 @@ pip install --upgrade openai
 - [Scenario 2: Authenticating with Entra ID - Interactive Login](https://github.com/LazaUK/AOAI-EntraIDAuth-SDKv1/tree/main#scenario-2-authenticating-with-entra-id---interactive-login)
 - [Scenario 3: Authenticating with Entra ID - Service Principal](https://github.com/LazaUK/AOAI-EntraIDAuth-SDKv1/tree/main#scenario-3-authenticating-with-entra-id---service-principal)
 - [Scenario 4: Authenticating with Entra ID - Managed Identity](https://github.com/LazaUK/AOAI-EntraIDAuth-SDKv1/tree/main#scenario-4-authenticating-with-entra-id---managed-identity)
-- [Scenario 4a: Specifics of using Managed Identity with Azure Kubernetes Services (AKS)]()
+- [Scenario 4a: Specifics of using Managed Identity with Azure Kubernetes Services (AKS)](https://github.com/LazaUK/AOAI-EntraIDAuth-SDKv1/tree/main#scenario-4a-specifics-of-using-managed-identity-with-azure-kubernetes-services-aks)
 
 ## Scenario 1: Authenticating with API Key
 1. To use API key authentication, assign API endpoint name, version and key, along with the Azure OpenAI deployment name to **OPENAI_API_BASE**, **OPENAI_API_VERSION**, **OPENAI_API_KEY** and **OPENAI_API_DEPLOY** environment variables.
@@ -150,6 +150,7 @@ response = client.chat.completions.create(
 ``` JSON
 The Atlantic Puffin, also known as the "sea parrot," is a charming seabird notable for its colorful beak and matching orange legs. These compact birds are excellent swimmers, using their wings to 'fly' underwater while hunting for fish. Puffins are social creatures, nesting in large colonies on cliffs and spending most of their lives at sea, only coming to land to breed.
 ```
+>**Credits**: Thank you to Mick Vleeshouwer for his suggestion on the use of Managed Identities and sharing [notebook details with the earlier API implementation](https://github.com/iMicknl/connect-AML-to-Azure-OpenAI/tree/main/notebooks).
 
 ## Scenario 4a: Specifics of using Managed Identity with Azure Kubernetes Services (AKS)
 If your application runs on AKS and requires the use of a managed identitiy, then you need to perform some additional configuration steps as described [here](https://learn.microsoft.com/en-us/azure/aks/open-ai-secure-access-quickstart):
@@ -157,5 +158,3 @@ If your application runs on AKS and requires the use of a managed identitiy, the
 - Create a Microsoft Entra ID federated credential, so that your AKS workload can exchange its service account's token for an Entra ID managed identity's token;
 - Create a Service Account in AKS that will contact **azure.workload.identity/client-id** annotation, pointing to MI's client ID as described [here](https://learn.microsoft.com/en-us/azure/aks/workload-identity-overview?tabs=python#service-account-annotations);
 - Update your AKS pod with a label **azure.workload.identity/use: "true"**, so that it can use workload identity as described [here](https://learn.microsoft.com/en-us/azure/aks/workload-identity-overview?tabs=python#pod-labels).
-
->**Credits**: Thank you to Mick Vleeshouwer for his suggestion about the use of Managed Identity and sharing [notebook details with the earlier API implementation](https://github.com/iMicknl/connect-AML-to-Azure-OpenAI/tree/main/notebooks).
