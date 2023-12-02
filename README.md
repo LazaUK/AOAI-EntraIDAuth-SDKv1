@@ -114,8 +114,8 @@ The animal I've chosen is the giraffe. Giraffes are the tallest mammals on Earth
 
 ## Scenario 4: Authenticating with Entra ID - Managed Identity
 >**Note**: This option can be used only with an Azure-based resource that supports the use of managed identities (MI), as described [here](https://learn.microsoft.com/en-us/azure/developer/python/sdk/authentication-azure-hosted-apps?tabs=azure-cli%2Cazure-app-service). Ensure, that your MI has the "**Cognitive Service OpenAI User**" role assigned to it on the Azure OpenAI resource.
-1. Assign managed identity's client ID to **AZURE_MANAGED_IDENTITY_CLIENT_ID** environment variable.
-2. Define Entra ID credentials with **ManagedIdentityCredential** class, that will require your MI's client ID.
+1. Assign the managed identity's client ID to **AZURE_MANAGED_IDENTITY_CLIENT_ID** environment variable.
+2. Define Entra ID credentials with **ManagedIdentityCredential** class, which will require your MI's client ID.
 ``` Python
 MI_credential = ManagedIdentityCredential(
     client_id = os.getenv("AZURE_MANAGED_IDENTITY_CLIENT_ID"),
@@ -128,7 +128,7 @@ token_provider = get_bearer_token_provider(
     "https://cognitiveservices.azure.com/.default"
 )
 ```
-4. Now you can instantiate AzureOpenAI client and set **azure_ad_token_provider** parameter to your token provider from Step 4.3 above.
+4. Now you can instantiate the AzureOpenAI client and set **azure_ad_token_provider** parameter to your token provider from Step 4.3 above.
 ``` Python
 client = AzureOpenAI(
     azure_endpoint = os.getenv("OPENAI_API_BASE"),
@@ -154,7 +154,10 @@ The Atlantic Puffin, also known as the "sea parrot," is a charming seabird notab
 
 ## Scenario 4a: Specifics of using Managed Identity with Azure Kubernetes Services (AKS)
 If your application runs on AKS and requires the use of a managed identitiy, then you need to perform some additional configuration steps as described [here](https://learn.microsoft.com/en-us/azure/aks/open-ai-secure-access-quickstart):
-- Enable Microsoft Entra Workload ID and OIDC (OpenID Connect) Issuer Endpoint features on an AKS cluster, with ```az aks update --resource-group <YOUR_AKS_RESOURCE_GROUP> --name <YOUR_AKS_CLUSTER_NAME> --enable-workload-identity --enable-oidc-issuer```;
+- Enable Microsoft Entra Workload ID and OIDC (OpenID Connect) Issuer Endpoint features on an AKS cluster:
+  ```
+  az aks update --resource-group <YOUR_AKS_RESOURCE_GROUP> --name <YOUR_AKS_CLUSTER_NAME> --enable-workload-identity --enable-oidc-issuer
+  ```
 - Create a Microsoft Entra ID federated credential, so that your AKS workload can exchange its service account's token for an Entra ID managed identity's token;
-- Create a Service Account in AKS that will contact **azure.workload.identity/client-id** annotation, pointing to MI's client ID as described [here](https://learn.microsoft.com/en-us/azure/aks/workload-identity-overview?tabs=python#service-account-annotations);
-- Update your AKS pod with a label **azure.workload.identity/use: "true"**, so that it can use workload identity as described [here](https://learn.microsoft.com/en-us/azure/aks/workload-identity-overview?tabs=python#pod-labels).
+- Create a Service Account in AKS that will contain the **azure.workload.identity/client-id** annotation, pointing to the MI's client ID as described [here](https://learn.microsoft.com/en-us/azure/aks/workload-identity-overview?tabs=python#service-account-annotations);
+- Update your AKS pod with the **azure.workload.identity/use: "true"** label, so that the pod can use workload identity as described [here](https://learn.microsoft.com/en-us/azure/aks/workload-identity-overview?tabs=python#pod-labels).
