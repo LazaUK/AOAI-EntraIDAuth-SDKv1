@@ -17,7 +17,7 @@ pip install --upgrade openai
 - [Scenario 1: Authenticating with API Key](https://github.com/LazaUK/AOAI-EntraIDAuth-SDKv1/tree/main#scenario-1-authenticating-with-api-key)
 - [Scenario 2: Authenticating with Entra ID - Interactive Login](https://github.com/LazaUK/AOAI-EntraIDAuth-SDKv1/tree/main#scenario-2-authenticating-with-entra-id---interactive-login)
 - [Scenario 3: Authenticating with Entra ID - Service Principal](https://github.com/LazaUK/AOAI-EntraIDAuth-SDKv1/tree/main#scenario-3-authenticating-with-entra-id---service-principal)
-- [Scenario 4: Authenticating with Entra ID - Managed Identity]()
+- [Scenario 4: Authenticating with Entra ID - Managed Identity](https://github.com/LazaUK/AOAI-EntraIDAuth-SDKv1/tree/main#scenario-4-authenticating-with-entra-id---managed-identity)
 - [Scenario 4a: Specifics of using Managed Identity with Azure Kubernetes Services (AKS)]()
 
 ## Scenario 1: Authenticating with API Key
