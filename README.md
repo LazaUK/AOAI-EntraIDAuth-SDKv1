@@ -151,7 +151,7 @@ response = client.chat.completions.create(
 The Atlantic Puffin, also known as the "sea parrot," is a charming seabird notable for its colorful beak and matching orange legs. These compact birds are excellent swimmers, using their wings to 'fly' underwater while hunting for fish. Puffins are social creatures, nesting in large colonies on cliffs and spending most of their lives at sea, only coming to land to breed.
 ```
 
-### Scenario 4a: Specifics of using Managed Identity with Azure Kubernetes Services (AKS)
+## Scenario 4a: Specifics of using Managed Identity with Azure Kubernetes Services (AKS)
 If your application runs on AKS and requires the use of a managed identitiy, then you need to perform some additional configuration steps as described [here](https://learn.microsoft.com/en-us/azure/aks/open-ai-secure-access-quickstart):
 - Enable Microsoft Entra Workload ID and OIDC (OpenID Connect) Issuer Endpoint features on an AKS cluster, with ```az aks update --resource-group <YOUR_AKS_RESOURCE_GROUP> --name <YOUR_AKS_CLUSTER_NAME> --enable-workload-identity --enable-oidc-issuer```;
 - Create a Microsoft Entra ID federated credential, so that your AKS workload can exchange its service account's token for an Entra ID managed identity's token;
